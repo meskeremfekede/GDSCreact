@@ -3,7 +3,7 @@ import './App.css';
 import Names from './Names'; 
 
 function App() {
-  const names = ['azariya', 'yeabsra', 'etsubdink']; 
+  const names = ['azariya', 'yeabsra', 'etsubdink','paulos']; 
 
   return (
     <div className="App">
