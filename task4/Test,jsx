@@ -1,0 +1,35 @@
+import React, { useState } from "react";
+import TaskList from "./List";
+
+const Test = () => {
+  const [tasks, setTasks] = useState([]);
+  const [newTask, setNewTask] = useState({ title: "", description: "", dueDate: "", completed: false });
+
+  const addTask = () => {
+    if (!newTask.title.trim()) return;
+    setTasks([...tasks, { ...newTask, id: Date.now() }]);
+    setNewTask({ title: "", description: "", dueDate: "", completed: false });
+  };
+
+  const deleteTask = (id) => setTasks(tasks.filter(task => task.id !== id));
+
+  const toggleCompletion = (id) => {
+    setTasks(tasks.map(task => (task.id === id ? { ...task, completed: !task.completed } : task)));
+  };
+
+  return (
+    <div className="p-4 max-w-lg mx-auto">
+      <h2 className="text-xl font-bold mb-2">Task Manager</h2>
+      <div className="mb-4 space-y-2">
+        <input type="text" placeholder="Title" value={newTask.title} onChange={(e) => setNewTask({ ...newTask, title: e.target.value })} className="border p-2 w-full" />
+        <input type="text" placeholder="Description" value={newTask.description} onChange={(e) => setNewTask({ ...newTask, description: e.target.value })} className="border p-2 w-full" />
+        <input type="date" value={newTask.dueDate} onChange={(e) => setNewTask({ ...newTask, dueDate: e.target.value })} className="border p-2 w-full" />
+        <button onClick={addTask} className="bg-blue-500 text-white px-4 py-2 rounded">Add Task</button>
+      </div>
+
+      <TaskList tasks={tasks} deleteTask={deleteTask} toggleCompletion={toggleCompletion} />
+    </div>
+  );
+};
+
+export default Test;
